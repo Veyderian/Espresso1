@@ -19,8 +19,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.intent.Intents;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
@@ -35,13 +34,17 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class IntentTest {
 
+//    @Rule
+//    public ActivityScenarioRule<MainActivity> mActivityScenarioRule =
+//            new ActivityScenarioRule<>(MainActivity.class);
+
     @Rule
-    public ActivityScenarioRule<MainActivity> mActivityScenarioRule =
-            new ActivityScenarioRule<>(MainActivity.class);
+    public IntentsTestRule<MainActivity> intentsTestRule =
+            new IntentsTestRule<>(MainActivity.class);
 
     @Test
     public void intentTest() {
-        Intents.init();
+        //Intents.init();
         ViewInteraction overflowMenuButton = onView(
                 allOf(withContentDescription("More options"),
                         childAtPosition(
@@ -66,7 +69,7 @@ public class IntentTest {
         intended(hasAction(Intent.ACTION_VIEW));
 
         intended(hasData("https://google.com"));
-        Intents.release();
+        //Intents.release();
     }
 
     private static Matcher<View> childAtPosition(
