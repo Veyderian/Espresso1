@@ -7,26 +7,27 @@ import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
 import static org.hamcrest.Matchers.allOf;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 
 public class IdlingTest {
     @Rule
-    public ActivityScenarioRule<MainActivity> mActivityScenarioRule =
-            new ActivityScenarioRule<>(MainActivity.class);
+
+    public ActivityTestRule<MainActivity> activityTestRule =
+            new ActivityTestRule<>(MainActivity.class);
 
     @Before
     public void registerIdlingResources() {  //подключаемся к счётчику
@@ -39,11 +40,10 @@ public class IdlingTest {
 
     }
 
+    @Test
     public void testOpenGallery() {
         ViewInteraction menu = onView(isAssignableFrom(AppCompatImageButton.class));
-//        ViewInteraction menu = onView(
-//                withId(R.id.toolbar)
-//        );
+
         menu.check(matches(isDisplayed()));
         menu.perform(click());
 
@@ -54,8 +54,6 @@ public class IdlingTest {
         itemSeven.check(
                 matches(withText("7")));
     }
-
-
-    }
+}
 
 
